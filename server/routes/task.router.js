@@ -55,7 +55,23 @@ router.delete('/deletetask/:id', (req, res) => {
 })
 
 // PUT
+router.put('/updatetask/:id', (req, res) => {
+    let taskToUpdateId = req.params.id;
+    let updateTaskStatus = req.body.newStatus
+    console.log("id made it to PUT on server side:", taskToUpdateId);
+    console.log("status updated to the server side:", updateTaskStatus);
+    const queryText = `UPDATE "todo-list" SET complete_status=$1 WHERE id=$2;`;
 
+    pool.query(queryText, [updateTaskStatus, taskToUpdateId])
+        .then((results) => {
+            res.sendStatus(200);
+        })
+        .catch((error) => {
+            console.log("error making database query:", queryText);
+            console.log("error message", error);
+            res.sendStatus(500);
+        })
+})
 
 
 

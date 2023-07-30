@@ -5,7 +5,7 @@ function onReady() {
     $('#submit-button').on('click', handleSubmit);
     $('#todo-item-list').on('click', '.delete-button', handleDelete);
     $('#todo-item-list').on('click', '.task-complete-button', handleUpdateTask);
-    
+
     // refresh DOM w/ to-do items
     getTasks();
 }
@@ -46,9 +46,25 @@ function handleDelete() {
 function handleUpdateTask() {
     console.log("inside handleUpdateTask")
     const itemId = $(this).closest('tr').data('id');
+    const currentCompleteStatus = $(this).data('complete_status');
     console.log("to update completed status, id:", itemId);
+    console.log("to update completed status, status:", currentCompleteStatus);
 
-    $.ajax
+
+    $.ajax({
+        method: 'PUT',
+        url: `/tasks/updatetask/${itemId}`,
+        data: { newStatus: !currentCompleteStatus } // this is switching the current complete status to be the opposite boolean using !
+    })
+        .then((response) => {
+            console.log(`success PUT for id: ${itemId}`);
+            // to retrieve latest version of table with updates and rerender DOM
+            getTasks();
+        })
+        .catch((error) => {
+            console.log('error on PUT:', error);
+            alert("Unable to update task at this time.  Please try again later.");
+        })
 
 }
 
@@ -94,7 +110,10 @@ function renderTasks(tasks) {
     for (let task of tasks) {
         let allTasks = $(`
         <tr>
-            <td><button class="task-complete-button">X</button></td>
+            <td><button 
+                class="task-complete-button"
+                data-complete_status="${task.complete_status}"
+             >X</button></td>
             <td>${task.task}</td>
             <td><button class="delete-button">Delete</button></td>
         </tr>
