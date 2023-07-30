@@ -5,4 +5,4 @@ CREATE TABLE "todo-list" (
 );
 
 INSERT INTO "todo-list" ("task", "complete_status")
-VALUES ('assignment', false), ('eat', false), ('sleep', false), ('Hang out with friends', false);
+VALUES ('eat', false), ('sleep', false), ('drink a whiskey drink', false), ('drink a vodka drink', false), ('drink a lager drink', false), ('drink a cider drink', false), ('get knocked down', false), ('get up again', false), ('do assignment', false) ;

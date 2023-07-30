@@ -13,13 +13,29 @@
 <body>
     <h1>Weekend To-Do List</h1>
     <main>
-        <form>
-            <input type="text" placeholder="To-Do List Item" id="todo-input">
-            <button id="submit-button">Add To List</button>
-        </form>
-        <div id="todo-item-list">
-            <!-- to-do items go here -->
-        </div>
+
+        <!-- input -->
+        <section>
+            <form>
+                <input type="text" placeholder="To-Do List Item" id="todo-input">
+                <button id="submit-button">Add To List</button>
+            </form>
+        </section>
+
+        <!-- table -->
+        <section>
+            <table>
+                <thead>
+                    <th>Done?</th>
+                    <th>Task</th>
+                    <th>Delete</th>
+                </thead>
+                <tbody id="todo-item-list">
+                    <!-- to-do items go here -->
+                </tbody>
+            </table>
+        </section>
+
     </main>
 </body>
 

@@ -26,13 +26,37 @@ router.post('/', (req, res) => {
 // GET
 router.get('/', (req, res) => {
     // 
-    let queryText = `SELECT * FROM "todo-list" ORDER BY "id";`;
+    let queryText = `SELECT * FROM "todo-list" ORDER BY "id";`; // trying to keep them in order when doing the PUT updates
     pool.query(queryText)
         .then((result) => {
-            console.log(result.rows);
+            console.log("all tasks being sent to client:", result.rows);
             // sending all to do list items in object
             res.send(result.rows);
         })
 })
+
+// DELETE
+router.delete('/deletetask/:id', (req, res) => {
+    let taskToDeleteId = req.params.id;
+    console.log("id made it to delete on server side:", taskToDeleteId)
+
+    let queryText = `DELETE FROM "todo-list" WHERE id=$1;`;
+
+    pool.query(queryText, [taskToDeleteId])
+        .then((result) => {
+            console.log("task deleted, id:", taskToDeleteId);
+            res.sendStatus(200);
+        })
+        .catch((error) => {
+            console.log("error making database query:", queryText);
+            console.log("error message", error);
+            res.sendStatus(500);
+        })
+})
+
+// PUT
+
+
+
 
 module.exports = router;
