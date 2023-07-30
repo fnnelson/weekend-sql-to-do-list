@@ -50,7 +50,6 @@ function handleUpdateTask() {
     console.log("to update completed status, id:", itemId);
     console.log("to update completed status, status:", currentCompleteStatus);
 
-
     $.ajax({
         method: 'PUT',
         url: `/tasks/updatetask/${itemId}`,
@@ -87,8 +86,9 @@ function addTask(newTaskObject) {
         })
 }
 
-function getTasks() {
+function getTasks(event) {
     console.log('GET received from server-side');
+
     $.ajax({
         method: 'GET',
         url: '/tasks'
@@ -107,20 +107,32 @@ function getTasks() {
 
 function renderTasks(tasks) {
     $('#todo-item-list').empty();
+    let checkedStatus;
     for (let task of tasks) {
-        let allTasks = $(`
+        
+        let taskToBeAppended = $(`
         <tr>
-            <td><button 
-                class="task-complete-button"
-                data-complete_status="${task.complete_status}"
-             >X</button></td>
+            <td>
+            <input type="checkbox" class="task-complete-button" data-complete_status="${task.complete_status}" ${checkedStatus}>
+            </td>
             <td>${task.task}</td>
             <td><button class="delete-button">Delete</button></td>
         </tr>
         `)
         // for each task, append a new row of the table onto the DOM, and add its ID to the DOM <p> object (only as data, not shown on DOM)
         // .data(param, DB attr) used as a setter here:
-        allTasks.data('id', task.id)
-        $('#todo-item-list').append(allTasks);
+        taskToBeAppended.data('id', task.id)
+
+        // here I'm saying if the complete_status is true, to add class of complete to the <tr>, so we can target the td's within to change the background color
+        if (task.complete_status == true) {
+            checkedStatus = "checked";
+            taskToBeAppended.addClass('complete')
+        } else if (task.complete_status == false) {
+            checkedStatus = "";
+            taskToBeAppended.removeClass('complete')
+        }
+        // append each task of the array of tasks sent from the DB
+        $('#todo-item-list').append(taskToBeAppended);
+        // console.log(checkedStatus);
     }
 }
