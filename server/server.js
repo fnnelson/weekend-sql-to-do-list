@@ -8,6 +8,11 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// // BOOTSTRAP
+// app.use('/js', express.static('../node_modules/bootstrap/dist/js'));
+// app.use('/js', express.static('../node_modules/jquery/dist'));
+// app.use('/css', express.static('../node_modules/bootstrap/dist/css'));
+
 // connect route from server to router
 app.use('/tasks', tasksRouter);
 

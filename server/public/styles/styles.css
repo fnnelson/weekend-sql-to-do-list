@@ -1,27 +1,46 @@
 body {
-    margin: 5%;
+    margin: 1% 5%;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    background-image: url(https://images.unsplash.com/photo-1548957318-e769d68f2ce7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=627&q=80);
+}
+
+header {
+    padding: 3%;
+    background-image: url(https://images.unsplash.com/photo-1541140911322-98afe66ea6da?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=6000);
+    background-size: cover;
+    background-position-y: 38%;
+    opacity: 90%;
+}
+
+h1 {
+    margin-left: 20%;
+    opacity: 100%;
 }
 
 section {
     padding: 2%;
+    font-size: 1em;
 }
 
-table,
-th,
+form {
+    padding-left: 10%;
+}
+
+.table {
+    padding-left: 10%;
+    background-color: rgba(165, 42, 42, 0.142);
+    font-size: 1.25em;
+}
+
 td {
-    border: 1px solid black;
-    border-collapse: collapse;
-    font-size: 1.2rem;
+    background-color: rgba(255, 252, 242, 0.8);
+    padding: 0 2%;
 }
 
-td {
-    background-color: cornsilk;
+th {
+    padding: 0 5%;
 }
-
-/* tr>td:has(.task-complete-button) {
-    background-color: green;
-} */
 
 .complete>td {
-    background-color: lightgreen;
+    background-color: rgba(144, 238, 144, 0.8);
 }

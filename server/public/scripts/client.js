@@ -23,10 +23,10 @@ function handleSubmit() {
 }
 
 function handleDelete() {
-    console.log("inside handleDelete")
+    // console.log("inside handleDelete")
     // .data(param) used as a getter here
     const itemId = $(this).closest('tr').data('id');
-    console.log("to delete, id:", itemId);
+    // console.log("to delete, id:", itemId);
 
     $.ajax({
         method: 'DELETE',
@@ -44,11 +44,11 @@ function handleDelete() {
 }
 
 function handleUpdateTask() {
-    console.log("inside handleUpdateTask")
+    // console.log("inside handleUpdateTask")
     const itemId = $(this).closest('tr').data('id');
     const currentCompleteStatus = $(this).data('complete_status');
-    console.log("to update completed status, id:", itemId);
-    console.log("to update completed status, status:", currentCompleteStatus);
+    // console.log("to update completed status, id:", itemId);
+    // console.log("to update completed status, status:", currentCompleteStatus);
 
     $.ajax({
         method: 'PUT',
@@ -68,7 +68,7 @@ function handleUpdateTask() {
 }
 
 function addTask(newTaskObject) {
-    console.log("adding task:", newTaskObject)
+    // console.log("adding task:", newTaskObject)
 
     $.ajax({
         method: 'POST',
@@ -87,14 +87,14 @@ function addTask(newTaskObject) {
 }
 
 function getTasks(event) {
-    console.log('GET received from server-side');
+    // console.log('GET received from server-side');
 
     $.ajax({
         method: 'GET',
         url: '/tasks'
     })
         .then((response) => {
-            console.log('received all tasks on client-side:', response)
+            // console.log('received all tasks on client-side:', response)
             renderTasks(response);
         })
         .catch((error) => {
@@ -109,14 +109,21 @@ function renderTasks(tasks) {
     $('#todo-item-list').empty();
     let checkedStatus;
     for (let task of tasks) {
-        
+
+        // for some reason the checkbox wasn't staying checked when clicking on it, possibly due to re-rendering the DOM upon refresh, so this conditional was used
+        if (task.complete_status == true) {
+            checkedStatus = "checked";
+        } else if (task.complete_status == false) {
+            checkedStatus = "";
+        }
+
         let taskToBeAppended = $(`
         <tr>
-            <td>
+            <td><span>
             <input type="checkbox" class="task-complete-button" data-complete_status="${task.complete_status}" ${checkedStatus}>
-            </td>
-            <td>${task.task}</td>
-            <td><button class="delete-button">Delete</button></td>
+            </span></td>
+            <td><span>${task.task}</span></td>
+            <td><span><button class="delete-button">Delete</button></span></td>
         </tr>
         `)
         // for each task, append a new row of the table onto the DOM, and add its ID to the DOM <p> object (only as data, not shown on DOM)
@@ -125,14 +132,11 @@ function renderTasks(tasks) {
 
         // here I'm saying if the complete_status is true, to add class of complete to the <tr>, so we can target the td's within to change the background color
         if (task.complete_status == true) {
-            checkedStatus = "checked";
             taskToBeAppended.addClass('complete')
         } else if (task.complete_status == false) {
-            checkedStatus = "";
             taskToBeAppended.removeClass('complete')
         }
         // append each task of the array of tasks sent from the DB
         $('#todo-item-list').append(taskToBeAppended);
-        // console.log(checkedStatus);
     }
 }
