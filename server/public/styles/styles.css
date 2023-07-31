@@ -15,6 +15,7 @@ header {
 h1 {
     margin-left: 20%;
     opacity: 100%;
+    text-shadow: rosybrown 2px 5px 5px;
 }
 
 section {
@@ -22,25 +23,42 @@ section {
     font-size: 1em;
 }
 
+.input {
+    background-color: rgba(245, 245, 245, 0.5);
+}
+
 form {
     padding-left: 10%;
 }
 
 .table {
+    display: flex;
+    flex-wrap: nowrap;
     padding-left: 10%;
     background-color: rgba(165, 42, 42, 0.142);
     font-size: 1.25em;
 }
 
+table {
+    width: 60%;
+}
+
 td {
     background-color: rgba(255, 252, 242, 0.8);
     padding: 0 2%;
+    margin: 0 30px;
 }
 
 th {
     padding: 0 5%;
+    text-shadow: rgb(141, 91, 91) 1px 1px 2px;
 }
 
 .complete>td {
     background-color: rgba(144, 238, 144, 0.8);
+    /* background-image: 
+    linear-gradient(
+        to bottom, 
+        rgba(144, 238, 144, 0.8), white
+        ); */
 }
